@@ -25,4 +25,14 @@ class PessoaService {
         pessoa.delete(flush: true)
         return [sucesso: "Pessoa com ID ${id} excluída com sucesso"]
     }
+
+    def buscarPorCns(String cns) {
+        
+        def pessoa = Pessoa.findByCns(cns)
+        if (!pessoa) {
+            return [erro: "Nenhuma pessoa encontrada com o CNS ${cns}."]
+        }
+     
+        return [sucesso: "Pessoa encontrada!", pessoa: pessoa]
+    }
 }

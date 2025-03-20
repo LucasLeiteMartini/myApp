@@ -4,7 +4,7 @@ class Pessoa {
     String nome
     Integer idade
     String endereco
-    String cns
+    // String cns
 
     static constraints = {
         nome nullable: false, blank: false

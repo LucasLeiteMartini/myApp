@@ -48,29 +48,29 @@ class PessoaController {
 
 
 
-    // def buscarPorCns() {
-    //     def cns = params.cns
+    def buscarPorCns() {
+        def cns = params.cns
 
-    //     if (!cns) {
-    //         flash.error = "CNS não informado"
-    //         redirect(action: "consulta")
-    //         return
-    //     }
+        if (!cns) {
+            flash.error = "CNS não informado"
+            redirect(action: "consulta")
+            return
+        }
 
-    //     def resultado = service.buscarPorCns(cns)
+        def resultado = service.buscarPorCns(cns)
 
-    //     if (resultado.erro) {
-    //         flash.error = resultado.erro
-    //     } else {
-    //         flash.message = resultado.sucesso
-    //         render(view: "consulta", model: [pessoa: resultado.pessoa])
-    //         return
-    //     }
+        if (resultado.erro) {
+            flash.error = resultado.erro
+        } else {
+            flash.message = resultado.sucesso
+            render(view: "consulta", model: [pessoa: resultado.pessoa])
+            return
+        }
 
-    //     redirect(action: "consulta")
-    // }
+        redirect(action: "consulta")
+    }
 
     def create(){}
     def deleteForm(){}
-    // def consulta(){}
+    def consulta(){}
 }   

@@ -26,13 +26,13 @@ class PessoaService {
         return [sucesso: "Pessoa com ID ${id} excluída com sucesso"]
     }
 
-    // def buscarPorCns(String cns) {
+    def buscarPorCns(String cns) {
         
-    //     def pessoa = Pessoa.findByCns(cns)
-    //     if (!pessoa) {
-    //         return [erro: "Nenhuma pessoa encontrada com o CNS ${cns}."]
-    //     }
+        def pessoa = Pessoa.where{cns}.find()
+        if (!pessoa) {
+            return [erro: "Nenhuma pessoa encontrada com o CNS ${cns}."]
+        }
      
-    //     return [sucesso: "Pessoa encontrada!", pessoa: pessoa]
-    // }
+        return [sucesso: "Pessoa encontrada!", pessoa: pessoa]
+    }
 }

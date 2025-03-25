@@ -1,32 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Excluir Pessoa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/assets/bootstrap.css">
+    <title>Excluir Pessoa</title>
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'styles.css')}">
 </head>
 <body>
-
     <div class="container">
-        <h2>Excluir Pessoa</h2>
+        <h2>Excluir Pessoa por CNS</h2>
 
         <g:if test="${flash.message}">
-            <div class="alert alert-success">${flash.message}</div>
+            <div class="message">${flash.message}</div>
         </g:if>
 
         <g:if test="${flash.error}">
-            <div class="alert alert-danger">${flash.error}</div>
+            <div class="error">${flash.error}</div>
         </g:if>
 
-        <g:form controller="pessoa" action="delete" method="POST" class="form">
-            <div class="form-group">
-                <label>ID da Pessoa:</label>
-                <g:textField name="id" type="number" class="form-control" required="true"/>
-            </div>
-
-            <button type="submit" class="btn btn-danger">Excluir</button>
+        <g:form controller="pessoa" action="buscarPorCns" method="GET">
+            <label for="cns">CNS:</label>
+            <g:textField name="cns" required="true"/>
+            <input type="hidden" name="origem" value="delete"/>
+            <g:submitButton name="buscar" value="Buscar Pessoa" class="btn"/>
         </g:form>
-    </div>
+        
 
+        <g:if test="${pessoa}">
+            <div class="container">
+                <h3>Confirmar Exclusão</h3>
+                <p><strong>Nome:</strong> ${pessoa.nome}</p>
+                <p><strong>CNS:</strong> ${pessoa.cns}</p>
+        
+                <g:form controller="pessoa" action="delete" method="POST">
+                    <input type="hidden" name="cns" value="${pessoa.cns}"/>
+                    <g:submitButton name="excluir" value="Confirmar Exclusão" class="btn"/>
+                </g:form>
+            </div>
+        </g:if>
+    </div>
 </body>
 </html>

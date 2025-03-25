@@ -17,20 +17,20 @@ class PessoaService {
         return [sucesso: "Pessoa cadastrada com sucesso!", pessoa: pessoa]
     }
 
-    def exlcuirPessoa(Long id){
-        def pessoa = Pessoa.get(id)
+    def excluirPessoa(String cnsConsultado){
+        def pessoa = Pessoa.where{cns == cnsConsultado}.find()
         if(!pessoa){
-            return [erro: "Pessoa com ID ${id} não encontrada!"]
+            return [erro: "Pessoa com CNS ${cnsConsultado} não encontrada!"]
         }
         pessoa.delete(flush: true)
-        return [sucesso: "Pessoa com ID ${id} excluída com sucesso"]
+        return [sucesso: "Pessoa com CNS ${cnsConsultado} excluída com sucesso"]
     }
 
-    def buscarPorCns(String cns) {
+    def buscarPorCns(String cnsConsultado) {
         
-        def pessoa = Pessoa.where{cns}.find()
+        def pessoa = Pessoa.where{cns == cnsConsultado}.find()
         if (!pessoa) {
-            return [erro: "Nenhuma pessoa encontrada com o CNS ${cns}."]
+            return [erro: "Nenhuma pessoa encontrada com o CNS ${cnsConsultado}."]
         }
      
         return [sucesso: "Pessoa encontrada!", pessoa: pessoa]

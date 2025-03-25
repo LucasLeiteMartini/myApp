@@ -27,22 +27,25 @@ class PessoaController {
 
     }
 
-    def delete(Long id){
-        def pessoaId = params.id as Long
 
-        if(!pessoaId){
-            flash.error = "ID inválido"
+
+    def delete() {
+        def cns = params.cns
+    
+        if (!cns) {
+            flash.error = "CNS não informado"
             redirect(action: "deleteForm")
             return
         }
-
-        def resultado = service.exlcuirPessoa(pessoaId)
-
-        if(resultado.erro){
+        
+        def resultado = service.excluirPessoa(cns)
+    
+        if (resultado.erro) {
             flash.error = resultado.erro
+        } else {
+            flash.message = resultado.sucesso
         }
-        flash.message = resultado.sucesso
-
+    
         redirect(action: "deleteForm")
     }
 
@@ -50,10 +53,10 @@ class PessoaController {
 
     def buscarPorCns() {
         def cns = params.cns
-
+        def origem = params.origem
         if (!cns) {
             flash.error = "CNS não informado"
-            redirect(action: "consulta")
+            redirect(action: origem == 'delete' ? 'deleteForm' : 'consulta')
             return
         }
 
@@ -61,13 +64,16 @@ class PessoaController {
 
         if (resultado.erro) {
             flash.error = resultado.erro
-        } else {
-            flash.message = resultado.sucesso
+            redirect(action: origem == 'delete' ? 'deleteForm' : 'consulta')
+            return 
+        } 
+
+        if(origem == 'delete'){
+            render(view:"deleteForm", model: [pessoa: resultado.pessoa])
+        }else{
             render(view: "consulta", model: [pessoa: resultado.pessoa])
-            return
         }
 
-        redirect(action: "consulta")
     }
 
     def create(){}

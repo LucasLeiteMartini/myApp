@@ -46,6 +46,8 @@
     <div class="grails-logo-container">
         <asset:image src="grails-cupsonly-logo-white.svg" class="grails-logo"/>
     </div>
+            <img class="images" src="${resource(dir: './assets/images', file: 'logo-ufam.png')}" />
+
 </div>
 
 <div id="content" role="main">

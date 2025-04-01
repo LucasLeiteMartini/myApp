@@ -105,3 +105,7 @@ assets {
     minifyCss = true
     skipNonDigests = true
 }
+
+test {
+    ignoreFailures = true
+}

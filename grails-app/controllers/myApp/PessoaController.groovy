@@ -31,7 +31,7 @@ class PessoaController {
 
     def delete() {
         def cns = params.cns
-    // apenas um teste de credencial
+
         if (!cns) {
             flash.error = "CNS não informado"
             redirect(action: "deleteForm")

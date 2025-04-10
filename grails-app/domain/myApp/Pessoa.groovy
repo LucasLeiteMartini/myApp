@@ -12,4 +12,8 @@ class Pessoa {
         endereco nullable: false, blank: false
         cns nullable: false, blank: false, unique: true
     }
+
+    static mapping = {
+        version false
+    }
 }

@@ -11,4 +11,8 @@ class Profissional {
         crm nullable: false, blank: false, unique: true
         especialidade nullable: false, blank: false
     }
+
+    static mapping = {
+        version false
+    }
 }

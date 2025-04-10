@@ -30,5 +30,6 @@ class Usuario implements Serializable {
     static mapping = {
         table name: '`user`'
         password column: '`password`'
+        version false
     }
 }

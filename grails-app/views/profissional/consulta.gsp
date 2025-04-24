@@ -17,7 +17,7 @@
             <div class="error">${flash.error}</div>
         </g:if>
 
-        <g:form controller="profissional" action="buscarPorCrm" method="GET">
+        <g:form controller="profissional" action="search" method="GET">
             <label for="crm">CRM:</label>
             <g:textField name="crm" required="true"/>
             <input type="hidden" name="origem" value="consulta"/>
@@ -30,6 +30,8 @@
             <p><strong>CRM:</strong> ${profissional.crm}</p>
             <p><strong>Especialidade:</strong> ${profissional.especialidade}</p>
         </g:if>
+
+        <p><a href="/profissional/create"></a></p>
     </div>
 </body>
 </html>

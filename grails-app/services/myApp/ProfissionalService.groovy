@@ -34,4 +34,18 @@ class ProfissionalService {
 
         return [sucesso: "Profissional encontrado!", profissional: profissional]
     }
+
+    def atualizarProfissional(String crmConsultado, Map params){
+        def profissional = Profissional.where {crm == crmConsultado}.find()
+
+        profissional.nome = params.nome
+        profissional.especialidade = params.especialidade
+
+        if(!profissional.validate()){
+            return [erro: "Erro ao atualizar cadastro: ${profissional.errors}"]
+        }
+
+        profissional.save(flush: true)
+        return [sucesso: "Profissional atualizado com sucesso!", profissional: profissional]
+    }
 }

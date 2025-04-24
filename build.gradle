@@ -61,6 +61,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-tomcat"
     implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation 'org.grails.plugins:spring-security-core:6.1.2'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     compileOnly "io.micronaut:micronaut-inject-groovy"
     console "org.grails:grails-console"
     runtimeOnly "com.bertramlabs.plugins:asset-pipeline-grails:4.5.1"

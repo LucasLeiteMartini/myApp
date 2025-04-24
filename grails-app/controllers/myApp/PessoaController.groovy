@@ -1,9 +1,10 @@
 package myApp
 
-import grails.gorm.transactions.Transactional
+import org.springframework.beans.factory.annotation.Autowired
+
 
 class PessoaController {
-    
+
     @Autowired //força a injeção de serviço
     PessoaService service
 
@@ -30,6 +31,10 @@ class PessoaController {
 
 
     def delete() {
+        if(service == null){
+            render status: 500, text: "erro interno: serviço não injetado"
+        }
+
         def cns = params.cns
 
         if (!cns) {
@@ -49,14 +54,37 @@ class PessoaController {
         redirect(action: "deleteForm")
     }
 
+    def update(){
+        def cns = params.cns as String
+        def resultado = service.atualizarPessoa(cns, params)
 
+        if(resultado.erro){
+            flash.error = resultado.erro
+            redirect(action: "atualizar")
+        }else{
+            flash.message = resultado.sucesso
+            redirect(action: "atualizar")
+        }
+    }
 
-    def buscarPorCns() {
+    def search() {
+        if(service == null){
+            status: 500
+            text: "erro interno: serviço não injetado"
+        }
+
         def cns = params.cns
         def origem = params.origem
+
         if (!cns) {
             flash.error = "CNS não informado"
-            redirect(action: origem == 'delete' ? 'deleteForm' : 'consulta')
+            if(origem == 'delete'){
+                redirect(action: "deleteForm")
+            }else if(origem == 'atualizar'){
+                redirect(action: "atualizar")
+            }else{
+                redirect(action: "consulta")
+            }
             return
         }
 
@@ -64,14 +92,22 @@ class PessoaController {
 
         if (resultado.erro) {
             flash.error = resultado.erro
-            redirect(action: origem == 'delete' ? 'deleteForm' : 'consulta')
-            return 
+            if(origem == 'delete'){
+                redirect(action: "deleteForm")
+            }else if(origem == 'atualizar'){
+                redirect(action: "atualizar")
+            }else{
+                redirect(action: "consulta")
+            }
+            return
         } 
 
         if(origem == 'delete'){
             render(view:"deleteForm", model: [pessoa: resultado.pessoa])
+        }else if(origem == 'atualizar'){
+            render(view: "atualizar", model: [pessoa: resultado.pessoa])
         }else{
-            render(view: "consulta", model: [pessoa: resultado.pessoa])
+            render(view: 'consulta', model: [pessoa: resultado.pessoa])
         }
 
     }
@@ -79,4 +115,5 @@ class PessoaController {
     def create(){}
     def deleteForm(){}
     def consulta(){}
+    def atualizar(){}
 }   

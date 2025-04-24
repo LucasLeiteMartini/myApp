@@ -35,4 +35,21 @@ class PessoaService {
      
         return [sucesso: "Pessoa encontrada!", pessoa: pessoa]
     }
+
+    def atualizarPessoa(String cnsConsultado, Map params){
+        def pessoa = Pessoa.where {cns == cnsConsultado}.find()
+
+        pessoa.nome = params.nome
+        pessoa.idade = params.idade as Integer
+        pessoa.endereco = params.endereco
+        pessoa.cns = params.cns
+
+        if(!pessoa.validate()){
+            return [erro: "Erro ao atualizar cadastro: ${pessoa.errors}"]
+        }
+
+        pessoa.save(flush: true)
+        return [sucesso: "Pessoa cadastrada com sucesso!", pessoa: pessoa]
+    }
+
 }

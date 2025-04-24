@@ -9,7 +9,7 @@
     <div class="container">
         <h2>Consultar Pessoa pelo CNS</h2>
 
-        <form action="${createLink(controller: 'pessoa', action: 'buscarPorCns')}" method="get">
+        <form action="${createLink(controller: 'pessoa', action: 'search')}" method="post">
             <label for="cns">CNS</label>
             <input type="text" id="cns" name="cns" required />
 

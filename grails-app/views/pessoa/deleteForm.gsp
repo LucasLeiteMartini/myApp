@@ -17,7 +17,7 @@
             <div class="error">${flash.error}</div>
         </g:if>
 
-        <g:form controller="pessoa" action="buscarPorCns" method="GET">
+        <g:form controller="pessoa" action="search" method="GET">
             <label for="cns">CNS:</label>
             <g:textField name="cns" required="true"/>
             <input type="hidden" name="origem" value="delete"/>

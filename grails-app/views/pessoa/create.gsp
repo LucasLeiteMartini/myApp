@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="container">
-        <img src="/images/telessaude_logo.png" width="100" />
+        <img src="${resource(dir: 'images', file: 'telessaude_logo.png')}" width="100" />
         <h2>Cadastro de Pessoa</h2>
         
         <g:if test="${flash.error}">
